@@ -1,0 +1,14 @@
+syntax = "proto3";
+package human.human;
+
+import "gogoproto/gogo.proto";
+import "human/params.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "human/x/human/types";
+
+// GenesisState defines the human module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}
