@@ -1,5 +1,5 @@
 syntax = "proto3";
-package vigorousdeveloper.humans.mint;
+package human.mint;
 
 import "gogoproto/gogo.proto";
 import "mint/mint.proto";

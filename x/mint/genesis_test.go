@@ -1,13 +1,13 @@
-package hmint_test
+package mint_test
 
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
-	keepertest "human/testutil/keeper"
 	"human/testutil/nullify"
-	"human/x/hmint"
-	"human/x/hmint/types"
+	"human/x/mint"
+	"human/x/mint/types"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
@@ -17,9 +17,9 @@ func TestGenesis(t *testing.T) {
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
-	k, ctx := keepertest.HmintKeeper(t)
-	hmint.InitGenesis(ctx, *k, genesisState)
-	got := hmint.ExportGenesis(ctx, *k)
+	k, ctx := keepertest.mintKeeper(t)
+	mint.InitGenesis(ctx, *k, genesisState)
+	got := mint.ExportGenesis(ctx, *k)
 	require.NotNil(t, got)
 
 	nullify.Fill(&genesisState)

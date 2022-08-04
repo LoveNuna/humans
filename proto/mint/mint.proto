@@ -1,5 +1,5 @@
 syntax = "proto3";
-package vigorousdeveloper.humans.mint;
+package human.mint;
 
 option go_package = "github.com/loveFeynman/humans/x/mint/types";
 

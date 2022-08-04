@@ -1,12 +1,13 @@
-package hmint
+package mint
 
 import (
 	"fmt"
 
+	"human/x/mint/keeper"
+	"human/x/mint/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"human/x/hmint/keeper"
-	"human/x/hmint/types"
 )
 
 // NewHandler ...

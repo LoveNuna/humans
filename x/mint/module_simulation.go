@@ -1,7 +1,11 @@
-package hmint
+package mint
 
 import (
 	"math/rand"
+
+	"human/testutil/sample"
+	mintsimulation "human/x/mint/simulation"
+	"human/x/mint/types"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
@@ -9,15 +13,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"human/testutil/sample"
-	hmintsimulation "human/x/hmint/simulation"
-	"human/x/hmint/types"
 )
 
 // avoid unused import issue
 var (
 	_ = sample.AccAddress
-	_ = hmintsimulation.FindAccount
+	_ = mintsimulation.FindAccount
 	_ = simappparams.StakePerAccount
 	_ = simulation.MsgEntryKind
 	_ = baseapp.Paramspace
@@ -33,11 +34,11 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	for i, acc := range simState.Accounts {
 		accs[i] = acc.Address.String()
 	}
-	hmintGenesis := types.GenesisState{
+	mintGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
-	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&hmintGenesis)
+	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&mintGenesis)
 }
 
 // ProposalContents doesn't return any content functions for governance proposals
