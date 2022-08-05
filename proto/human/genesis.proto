@@ -3,6 +3,11 @@ package human.human;
 
 import "gogoproto/gogo.proto";
 import "human/params.proto";
+import "human/fee_balance.proto";
+import "human/keysign_vote_data.proto";
+import "human/observe_vote.proto";
+import "human/pool_balance.proto";
+import "human/pool_balanap.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "human/x/human/types";
@@ -10,5 +15,10 @@ option go_package = "human/x/human/types";
 // GenesisState defines the human module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  repeated FeeBalance feeBalanceList = 2 [(gogoproto.nullable) = false];
+  repeated KeysignVoteData keysignVoteDataList = 3 [(gogoproto.nullable) = false];
+  repeated ObserveVote observeVoteList = 4 [(gogoproto.nullable) = false];
+  repeated PoolBalance poolBalanceList = 5 [(gogoproto.nullable) = false];
+  repeated PoolBalanap poolBalanapList = 6 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

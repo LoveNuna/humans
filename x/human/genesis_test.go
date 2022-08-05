@@ -14,6 +14,46 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
+		FeeBalanceList: []types.FeeBalance{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		KeysignVoteDataList: []types.KeysignVoteData{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		ObserveVoteList: []types.ObserveVote{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		PoolBalanceList: []types.PoolBalance{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		PoolBalanapList: []types.PoolBalanap{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -25,5 +65,10 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
+	require.ElementsMatch(t, genesisState.FeeBalanceList, got.FeeBalanceList)
+	require.ElementsMatch(t, genesisState.KeysignVoteDataList, got.KeysignVoteDataList)
+	require.ElementsMatch(t, genesisState.ObserveVoteList, got.ObserveVoteList)
+	require.ElementsMatch(t, genesisState.PoolBalanceList, got.PoolBalanceList)
+	require.ElementsMatch(t, genesisState.PoolBalanapList, got.PoolBalanapList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

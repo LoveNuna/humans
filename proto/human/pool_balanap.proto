@@ -1,0 +1,22 @@
+syntax = "proto3";
+package human.human;
+
+option go_package = "human/x/human/types";
+
+message PoolBalanap {
+  string index = 1; 
+  string transactionData = 2; 
+  string originChain = 3; 
+  string originAddress = 4; 
+  string targetChain = 5; 
+  string targetAddress = 6; 
+  string amount = 7; 
+  string time = 8; 
+  string creator = 9; 
+  string status = 10; 
+  string confirmedBlockHash = 11; 
+  string signedKey = 12; 
+  string fee = 13; 
+  
+}
+

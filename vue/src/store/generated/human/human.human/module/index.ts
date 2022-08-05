@@ -4,17 +4,17 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgKeysignVote } from "./types/human/tx";
-import { MsgUpdateBalance } from "./types/human/tx";
 import { MsgRequestTransaction } from "./types/human/tx";
 import { MsgObservationVote } from "./types/human/tx";
+import { MsgUpdateBalance } from "./types/human/tx";
+import { MsgKeysignVote } from "./types/human/tx";
 
 
 const types = [
-  ["/human.human.MsgKeysignVote", MsgKeysignVote],
-  ["/human.human.MsgUpdateBalance", MsgUpdateBalance],
   ["/human.human.MsgRequestTransaction", MsgRequestTransaction],
   ["/human.human.MsgObservationVote", MsgObservationVote],
+  ["/human.human.MsgUpdateBalance", MsgUpdateBalance],
+  ["/human.human.MsgKeysignVote", MsgKeysignVote],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -47,10 +47,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgKeysignVote: (data: MsgKeysignVote): EncodeObject => ({ typeUrl: "/human.human.MsgKeysignVote", value: MsgKeysignVote.fromPartial( data ) }),
-    msgUpdateBalance: (data: MsgUpdateBalance): EncodeObject => ({ typeUrl: "/human.human.MsgUpdateBalance", value: MsgUpdateBalance.fromPartial( data ) }),
     msgRequestTransaction: (data: MsgRequestTransaction): EncodeObject => ({ typeUrl: "/human.human.MsgRequestTransaction", value: MsgRequestTransaction.fromPartial( data ) }),
     msgObservationVote: (data: MsgObservationVote): EncodeObject => ({ typeUrl: "/human.human.MsgObservationVote", value: MsgObservationVote.fromPartial( data ) }),
+    msgUpdateBalance: (data: MsgUpdateBalance): EncodeObject => ({ typeUrl: "/human.human.MsgUpdateBalance", value: MsgUpdateBalance.fromPartial( data ) }),
+    msgKeysignVote: (data: MsgKeysignVote): EncodeObject => ({ typeUrl: "/human.human.MsgKeysignVote", value: MsgKeysignVote.fromPartial( data ) }),
     
   };
 };

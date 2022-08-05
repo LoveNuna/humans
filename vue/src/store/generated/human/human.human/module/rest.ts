@@ -9,6 +9,21 @@
  * ---------------------------------------------------------------
  */
 
+export interface HumanFeeBalance {
+  index?: string;
+  chainName?: string;
+  balance?: string;
+  decimal?: string;
+}
+
+export interface HumanKeysignVoteData {
+  index?: string;
+  txHash?: string;
+  pubKey?: string;
+  voter?: string;
+  txTime?: string;
+}
+
 export type HumanMsgKeysignVoteResponse = object;
 
 export interface HumanMsgObservationVoteResponse {
@@ -23,10 +38,140 @@ export interface HumanMsgRequestTransactionResponse {
 
 export type HumanMsgUpdateBalanceResponse = object;
 
+export interface HumanObserveVote {
+  index?: string;
+  creator?: string;
+  txhash?: string;
+  from?: string;
+  to?: string;
+  amount?: string;
+  txtime?: string;
+  chainId?: string;
+  used?: string;
+}
+
 /**
  * Params defines the parameters for the module.
  */
 export type HumanParams = object;
+
+export interface HumanPoolBalanap {
+  index?: string;
+  transactionData?: string;
+  originChain?: string;
+  originAddress?: string;
+  targetChain?: string;
+  targetAddress?: string;
+  amount?: string;
+  time?: string;
+  creator?: string;
+  status?: string;
+  confirmedBlockHash?: string;
+  signedKey?: string;
+  fee?: string;
+}
+
+export interface HumanPoolBalance {
+  index?: string;
+  chainName?: string;
+  balance?: string;
+  decimal?: string;
+}
+
+export interface HumanQueryAllFeeBalanceResponse {
+  feeBalance?: HumanFeeBalance[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface HumanQueryAllKeysignVoteDataResponse {
+  keysignVoteData?: HumanKeysignVoteData[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface HumanQueryAllObserveVoteResponse {
+  observeVote?: HumanObserveVote[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface HumanQueryAllPoolBalanapResponse {
+  poolBalanap?: HumanPoolBalanap[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface HumanQueryAllPoolBalanceResponse {
+  poolBalance?: HumanPoolBalance[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface HumanQueryGetFeeBalanceResponse {
+  feeBalance?: HumanFeeBalance;
+}
+
+export interface HumanQueryGetKeysignVoteDataResponse {
+  keysignVoteData?: HumanKeysignVoteData;
+}
+
+export interface HumanQueryGetObserveVoteResponse {
+  observeVote?: HumanObserveVote;
+}
+
+export interface HumanQueryGetPoolBalanapResponse {
+  poolBalanap?: HumanPoolBalanap;
+}
+
+export interface HumanQueryGetPoolBalanceResponse {
+  poolBalance?: HumanPoolBalance;
+}
 
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
@@ -45,6 +190,69 @@ export interface RpcStatus {
   code?: number;
   message?: string;
   details?: ProtobufAny[];
+}
+
+/**
+* message SomeRequest {
+         Foo some_parameter = 1;
+         PageRequest pagination = 2;
+ }
+*/
+export interface V1Beta1PageRequest {
+  /**
+   * key is a value returned in PageResponse.next_key to begin
+   * querying the next page most efficiently. Only one of offset or key
+   * should be set.
+   * @format byte
+   */
+  key?: string;
+
+  /**
+   * offset is a numeric offset that can be used when key is unavailable.
+   * It is less efficient than using key. Only one of offset or key should
+   * be set.
+   * @format uint64
+   */
+  offset?: string;
+
+  /**
+   * limit is the total number of results to be returned in the result page.
+   * If left empty it will default to a value to be set by each app.
+   * @format uint64
+   */
+  limit?: string;
+
+  /**
+   * count_total is set to true  to indicate that the result set should include
+   * a count of the total number of items available for pagination in UIs.
+   * count_total is only respected when offset is used. It is ignored when key
+   * is set.
+   */
+  count_total?: boolean;
+
+  /**
+   * reverse is set to true if results are to be returned in the descending order.
+   *
+   * Since: cosmos-sdk 0.43
+   */
+  reverse?: boolean;
+}
+
+/**
+* PageResponse is to be embedded in gRPC response messages where the
+corresponding request message has used PageRequest.
+
+ message SomeResponse {
+         repeated Bar results = 1;
+         PageResponse page = 2;
+ }
+*/
+export interface V1Beta1PageResponse {
+  /** @format byte */
+  next_key?: string;
+
+  /** @format uint64 */
+  total?: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -239,10 +447,136 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title human/genesis.proto
+ * @title human/fee_balance.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFeeBalanceAll
+   * @summary Queries a list of FeeBalance items.
+   * @request GET:/human/human/fee_balance
+   */
+  queryFeeBalanceAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<HumanQueryAllFeeBalanceResponse, RpcStatus>({
+      path: `/human/human/fee_balance`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFeeBalance
+   * @summary Queries a FeeBalance by index.
+   * @request GET:/human/human/fee_balance/{index}
+   */
+  queryFeeBalance = (index: string, params: RequestParams = {}) =>
+    this.request<HumanQueryGetFeeBalanceResponse, RpcStatus>({
+      path: `/human/human/fee_balance/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryKeysignVoteDataAll
+   * @summary Queries a list of KeysignVoteData items.
+   * @request GET:/human/human/keysign_vote_data
+   */
+  queryKeysignVoteDataAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<HumanQueryAllKeysignVoteDataResponse, RpcStatus>({
+      path: `/human/human/keysign_vote_data`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryKeysignVoteData
+   * @summary Queries a KeysignVoteData by index.
+   * @request GET:/human/human/keysign_vote_data/{index}
+   */
+  queryKeysignVoteData = (index: string, params: RequestParams = {}) =>
+    this.request<HumanQueryGetKeysignVoteDataResponse, RpcStatus>({
+      path: `/human/human/keysign_vote_data/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryObserveVoteAll
+   * @summary Queries a list of ObserveVote items.
+   * @request GET:/human/human/observe_vote
+   */
+  queryObserveVoteAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<HumanQueryAllObserveVoteResponse, RpcStatus>({
+      path: `/human/human/observe_vote`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryObserveVote
+   * @summary Queries a ObserveVote by index.
+   * @request GET:/human/human/observe_vote/{index}
+   */
+  queryObserveVote = (index: string, params: RequestParams = {}) =>
+    this.request<HumanQueryGetObserveVoteResponse, RpcStatus>({
+      path: `/human/human/observe_vote/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *
@@ -254,6 +588,90 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<HumanQueryParamsResponse, RpcStatus>({
       path: `/human/human/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPoolBalanapAll
+   * @summary Queries a list of PoolBalanap items.
+   * @request GET:/human/human/pool_balanap
+   */
+  queryPoolBalanapAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<HumanQueryAllPoolBalanapResponse, RpcStatus>({
+      path: `/human/human/pool_balanap`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPoolBalanap
+   * @summary Queries a PoolBalanap by index.
+   * @request GET:/human/human/pool_balanap/{index}
+   */
+  queryPoolBalanap = (index: string, params: RequestParams = {}) =>
+    this.request<HumanQueryGetPoolBalanapResponse, RpcStatus>({
+      path: `/human/human/pool_balanap/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPoolBalanceAll
+   * @summary Queries a list of PoolBalance items.
+   * @request GET:/human/human/pool_balance
+   */
+  queryPoolBalanceAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<HumanQueryAllPoolBalanceResponse, RpcStatus>({
+      path: `/human/human/pool_balance`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPoolBalance
+   * @summary Queries a PoolBalance by index.
+   * @request GET:/human/human/pool_balance/{index}
+   */
+  queryPoolBalance = (index: string, params: RequestParams = {}) =>
+    this.request<HumanQueryGetPoolBalanceResponse, RpcStatus>({
+      path: `/human/human/pool_balance/${index}`,
       method: "GET",
       format: "json",
       ...params,
