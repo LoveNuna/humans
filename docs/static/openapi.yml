@@ -47178,6 +47178,24 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  human.human.MsgKeysignVoteResponse:
+    type: object
+  human.human.MsgObservationVoteResponse:
+    type: object
+    properties:
+      code:
+        type: string
+      msg:
+        type: string
+  human.human.MsgRequestTransactionResponse:
+    type: object
+    properties:
+      code:
+        type: string
+      msg:
+        type: string
+  human.human.MsgUpdateBalanceResponse:
+    type: object
   human.human.Params:
     type: object
     description: Params defines the parameters for the module.

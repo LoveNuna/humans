@@ -7,7 +7,60 @@ option go_package = "human/x/human/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc RequestTransaction(MsgRequestTransaction) returns (MsgRequestTransactionResponse);
+  rpc ObservationVote(MsgObservationVote) returns (MsgObservationVoteResponse);
+  rpc UpdateBalance(MsgUpdateBalance) returns (MsgUpdateBalanceResponse);
+  rpc KeysignVote(MsgKeysignVote) returns (MsgKeysignVoteResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgRequestTransaction {
+  string creator = 1;
+  string originChain = 2;
+  string originAddress = 3;
+  string targetChain = 4;
+  string targetAddress = 5;
+  string amount = 6;
+  string fee = 7;
+}
+
+message MsgRequestTransactionResponse {
+    string code = 1;
+    string msg = 2;
+}
+
+
+message MsgObservationVote {
+  string creator = 1;
+  string txHash = 2;
+  string chainName = 3;
+  string from = 4;
+  string to = 5;
+  string amount = 6;
+}
+
+message MsgObservationVoteResponse {
+  string code = 1;
+  string msg = 2;
+}
+
+message MsgUpdateBalance {
+  string creator = 1;
+  string chainName = 2;
+  string balance = 3;
+  string decimal = 4;
+}
+
+message MsgUpdateBalanceResponse {
+}
+
+message MsgKeysignVote {
+  string creator = 1;
+  string txHash = 2;
+  string pubKey = 3;
+}
+
+message MsgKeysignVoteResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

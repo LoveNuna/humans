@@ -9,6 +9,20 @@
  * ---------------------------------------------------------------
  */
 
+export type HumanMsgKeysignVoteResponse = object;
+
+export interface HumanMsgObservationVoteResponse {
+  code?: string;
+  msg?: string;
+}
+
+export interface HumanMsgRequestTransactionResponse {
+  code?: string;
+  msg?: string;
+}
+
+export type HumanMsgUpdateBalanceResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */
